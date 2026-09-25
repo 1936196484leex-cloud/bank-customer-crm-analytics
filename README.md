@@ -24,6 +24,7 @@ This project aims to answer the following questions:
 - SQL
 - SQLite
 - Jupyter Notebook
+- tableau
 
 ## Dataset
 
@@ -77,3 +78,41 @@ This suggests that the bank could prioritize this customer segment in future mar
 ![Overall vs Target Segment](images/target_segment.png)
 
 However, this targeting rule was identified and evaluated using the same historical dataset, so its effectiveness should be validated on unseen data or through A/B testing before deployment.
+
+## Business Recommendations
+
+1. **Prioritize high-potential customer segments**  
+   Focus marketing resources on customers with stronger conversion signals, particularly those with higher account balances, no housing or personal loans, and successful previous campaign outcomes.
+
+2. **Avoid excessive repeated contact**  
+   Conversion rates generally decreased as the number of contacts increased within the 1–5 contact range. Rather than repeatedly contacting the same customers, the bank should prioritize higher-potential customers earlier in the campaign.
+
+3. **Use previous campaign outcomes as a CRM signal**  
+   Customers with successful previous campaign outcomes showed substantially higher conversion rates. Historical campaign response should therefore be considered when prioritizing customers for future campaigns.
+
+4. **Apply differentiated targeting strategies**  
+   Large customer segments can provide greater conversion volume, while smaller high-conversion segments may be suitable for more targeted campaigns. Marketing decisions should consider both conversion rate and segment size.
+
+   ## Limitations
+
+- The analysis identifies associations rather than causal relationships.
+- The target customer segment was identified and evaluated using the same historical dataset, which may introduce selection bias or overfitting.
+- Some high-conversion customer groups contain relatively small sample sizes.
+- The proposed targeting strategy should be validated using unseen data or A/B testing before real-world deployment.
+
+## Project Structure
+
+bank-customer-crm-analytics/
+├── data/
+│   └── bank-full.csv
+├── images/
+├── notebooks/
+│   └── customer_analysis.ipynb
+├── sql/
+│   └── crm_analysis.sql
+├── .gitignore
+├── README.md
+└── requirements.txt
+
+
+

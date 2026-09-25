@@ -266,7 +266,7 @@ SELECT
         END
     ) as conversion_count,
     round(
-        100.0*sum(
+        100.0 * sum(
             CASE
                 when y = 'yes' then 1
                 ELSE 0
@@ -281,3 +281,66 @@ WHERE
     AND housing = 'no'
     AND loan = 'no'
     AND poutcome = 'success';
+
+-- Q6 Customer Segment Ranking
+With
+    overall_performance AS (
+        SELECT
+            100.0 * sum(
+                CASE
+                    WHEN y = 'yes' then 1
+                    else 0
+                END
+            ) / count(*) AS overall_conversion_rate
+        FROM
+            bank
+    ),
+    segment_performance AS (
+        SELECT
+            job,
+            housing,
+            loan,
+            count(*) as customer_count,
+            sum(
+                CASE
+                    WHEN y = 'yes' THEN 1
+                    ELSE 0
+                END
+            ) as conversion_count,
+            round(
+                100 * sum(
+                    CASE
+                        WHEN y = 'yes' THEN 1
+                        ELSE 0
+                    END
+                ) / count(*)
+            ) AS conversion_rate
+        FROM
+            bank
+        group by
+            job,
+            housing,
+            loan
+    )
+SELECT
+    s.*,
+    round(o.overall_conversion_rate, 2) as overall_conversion_rate,
+    round(s.conversion_rate / o.overall_conversion_rate, 2) as lift,
+    rank() over (
+        order by
+            conversion_rate DESC
+    ) as segment_rank
+FROM
+    segment_performance s
+    CROSS join overall_performance o
+where
+    s.customer_count >= 160
+    AND s.conversion_rate > o.overall_conversion_rate
+order by
+    s.conversion_rate DESC;
+-- key insights:
+-- 1. overall_conversion = 11.7%
+-- 2. students without housing or personal loans archieved the highest conversion rate (36%) , with a lift of 3.08
+-- 3. retired customers without housing or personal loans ranked the second with a 28% conversion rate and 2.39 lift 
+-- 4. High-performing segments consistently have no housing and personal loan 
+-- 5. These segments may be prioritized for future marketing campaigns 
