@@ -75,9 +75,13 @@ Customers with a balance of at least 1,500, no housing loan, no personal loan, a
 
 This suggests that the bank could prioritize this customer segment in future marketing campaigns.
 
-![Overall vs Target Segment](images/target_segment.png)
+![Overall vs Target Segment](images/target_conversion.png)
 
 However, this targeting rule was identified and evaluated using the same historical dataset, so its effectiveness should be validated on unseen data or through A/B testing before deployment.
+
+## Tableau Dashboard
+An interactive Tableau dashboard was developed tp visuallize campaign performance across customer segments , contact methods, previous campaign outcomes , and monthly trends.
+ ![Bank Marketing Campaign Performance Dashboard](images/bank_marketing_dashboard.png)
 
 ## Business Recommendations
 
